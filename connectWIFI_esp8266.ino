@@ -31,7 +31,7 @@ void setup() {
   // Modelo de conexão ao Wi-Fi
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  Serial.print("Conectando ao WiFi ("+ssid+") ..");
+  Serial.print("Conectando ao WiFi ("+ String(ssid)+") ..");
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print('.');
     delay(500);
@@ -75,7 +75,7 @@ void loop() {
       Serial.println(serverPath);
       
       if (https.begin(*client, serverPath)) {  // HTTPS
-        Serial.printlv("[HTTPS] GET");
+        Serial.println("[HTTPS] GET");
 
         int httpCode = https.GET();
 
