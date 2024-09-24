@@ -2,6 +2,12 @@
 
 Este projeto é uma implementação simples de requisições HTTP usando o ESP8266. O código foi desenvolvido com fins didáticos e é gratuito para qualquer pessoa que o obtenha.
 
+## Apoio
+
+Este(s) material(is) foi(am) utilizado(s) de apoio para o desenvolvimento deste conteúdo:
+
+- https://www.robocore.net/tutoriais/instalando-driver-do-nodemcu?srsltid=AfmBOopUhDuV8Pjk_UQS4H_g-5vd_s1_lzEp2dl_mL9RVlbjDUUiDpTS
+
 ## Descrição
 
 Este software permite que um dispositivo ESP8266 se conecte a uma rede Wi-Fi e envie requisições HTTP GET para um servidor. Os dados são enviados periodicamente, utilizando um número aleatório como exemplo. A implementação faz uso de conexões HTTPS para garantir a segurança nas comunicações.
@@ -19,6 +25,15 @@ Este software permite que um dispositivo ESP8266 se conecte a uma rede Wi-Fi e e
 - Biblioteca `ESP8266WiFi`
 - Biblioteca `ESP8266HTTPClient`
 - Biblioteca `WiFiClientSecureBearSSL`
+
+### Drivers
+
+Parece coisa do passado (kkk), mas pode ser necessária a instalação dos drivers para a comunicação do ESP com a IDE do Arduíno (ou qualquer outra que esteja utilizando).
+
+Há uma pasta de drivers dentro do projeto com dois arquivos, um para o modelo V2 e outro para o modelo V3, para saber qual é o seu, veja a imagem a seguir:
+
+![Diferenças V2 e V3](drivers/diferenca_v2_v3.jpg)
+Fonte: https://www.robocore.net/tutoriais/instalando-driver-do-nodemcu
 
 ## Como Usar
 
