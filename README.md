@@ -39,7 +39,7 @@ Este software permite que um dispositivo ESP8266 se conecte a uma rede Wi-Fi e e
 
 ## Código
 
-`
+```cpp
 /*
   Fred Augusto
   
@@ -115,7 +115,7 @@ void loop() {
     lastTime = millis();
   }
 }
-`
+``
 
 ## Contribuições
 
