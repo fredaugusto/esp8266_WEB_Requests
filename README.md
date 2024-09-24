@@ -1,5 +1,7 @@
 # ESP8266 - WEB Requests
 
+Em primeiro lugar, se o projeto te ajudou de alguma maneira, comente na aba "Discussões" com qualuqer mensagem para apoiar o projeto.
+
 Este projeto é uma implementação simples de requisições HTTP usando o ESP8266. O código foi desenvolvido com fins didáticos e é gratuito para qualquer pessoa que o obtenha.
 
 ## Apoio
@@ -76,3 +78,7 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 ## Licença
 
 Este projeto é de domínio público e pode ser utilizado livremente.
+
+## Palavras-chave
+
+Palavras chave: ESP8266, requisições HTTP, conexão Wi-Fi, Arduino, código aberto, projeto didático, GET requests, HTTPS, ponto de acesso, LEDs de status, programação em C++, Internet das Coisas (IoT), biblioteca ESP8266WiFi, ESP32, ESP, biblioteca ESP8266HTTPClient, desenvolvimento de firmware, interface web, número aleatório, ambiente de testes, projetos com ESP e conexão segura. 
