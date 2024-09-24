@@ -6,7 +6,7 @@ Este projeto é uma implementação simples de requisições HTTP usando o ESP82
 
 Este(s) material(is) foi(am) utilizado(s) de apoio para o desenvolvimento deste conteúdo:
 
-- https://www.robocore.net/tutoriais/instalando-driver-do-nodemcu?srsltid=AfmBOopUhDuV8Pjk_UQS4H_g-5vd_s1_lzEp2dl_mL9RVlbjDUUiDpTS
+- [Instalação do driver do NodeMCU](https://www.robocore.net/tutoriais/instalando-driver-do-nodemcu?srsltid=AfmBOopUhDuV8Pjk_UQS4H_g-5vd_s1_lzEp2dl_mL9RVlbjDUUiDpTS)
 
 ## Descrição
 
@@ -30,10 +30,10 @@ Este software permite que um dispositivo ESP8266 se conecte a uma rede Wi-Fi e e
 
 Parece coisa do passado (kkk), mas pode ser necessária a instalação dos drivers para a comunicação do ESP com a IDE do Arduíno (ou qualquer outra que esteja utilizando).
 
-Há uma pasta de drivers dentro do projeto com dois arquivos, um para o modelo V2 e outro para o modelo V3, para saber qual é o seu, veja a imagem a seguir:
+Há uma pasta de drivers dentro do projeto com dois arquivos, um para o modelo V2 e outro para o modelo V3. Para saber qual é o seu, veja a imagem a seguir:
 
-![Diferenças V2 e V3](drivers/diferenca_v2_v3.jpg)
-Fonte: https://www.robocore.net/tutoriais/instalando-driver-do-nodemcu
+![Diferenças V2 e V3](drivers/diferenca_v2_v3.jpg)  
+Fonte: [Robocore](https://www.robocore.net/tutoriais/instalando-driver-do-nodemcu)
 
 ## Como Usar
 
@@ -52,85 +52,22 @@ Fonte: https://www.robocore.net/tutoriais/instalando-driver-do-nodemcu
 5. **Compilar e Carregar**:
    - Compile e faça o upload do código para sua placa ESP8266 usando o Arduino IDE.
 
-## Código
+## Códigos
 
-```cpp
-/*
-  Fred Augusto
-  
-  Este software foi desenvolvido para fins didáticos e os arquivos de associados são gratuitos a qualquer pessoa que obtenha uma cópia.
+### `connectWIFI_esp8266_basic.ino`
+Este arquivo contém um modelo de conexão e requisições GET básicos. O código estabelece uma conexão com a rede Wi-Fi especificada e envia requisições HTTP GET para um servidor. Todos os parâmetros e configurações são definidos diretamente no código, permitindo uma rápida implementação e entendimento dos conceitos fundamentais. É ideal para quem está começando a trabalhar com ESP8266 e deseja aprender sobre conexões e requisições de forma simples.
 
-  O código é compatível com placas ESP8266 na versão 3.0.0 ou superior
-*/
+### `connectWIFI_esp8266_advanced.ino`
+Neste arquivo, implementamos funcionalidades adicionais para o ESP8266, incluindo feedback visual através de LEDs. O LED integrado da placa indica o status da conexão, proporcionando uma experiência interativa e facilitando a depuração. Quando o ESP8266 está tentando se conectar ao Wi-Fi, o LED pisca em intervalos regulares. Uma vez conectado, ele permanece aceso continuamente, sinalizando que a conexão foi bem-sucedida.
 
-#include <Arduino.h>
-#include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
-#include <WiFiClientSecureBearSSL.h>
+Esse tipo de feedback é extremamente útil durante o desenvolvimento e testes, pois permite que o usuário saiba rapidamente se o dispositivo está ativo e se a conexão está funcionando. Além disso, essa implementação é um passo importante para quem deseja adicionar elementos de feedback visual a projetos mais complexos, como sistemas de monitoramento ou automação residencial.
 
-const char* ssid = "VIVO-7738";
-const char* password = "vivo123456";
+### `connectWIFI_esp8266_AP_advanced.ino`
+Este arquivo apresenta uma abordagem mais avançada para gerenciar a conexão do ESP8266. Caso o dispositivo não consiga se conectar ao ponto de acesso configurado, ele automaticamente cria um ponto de acesso próprio. Isso permite que usuários acessem uma interface web onde podem alterar as configurações de conexão de forma intuitiva.
 
-String serverName = "https://fredaugusto.com.br/teste/enviar_dados.php";
+Ao conectar-se a esta rede, o usuário pode acessar uma página HTML através de um navegador, que oferece um formulário para modificar o SSID e a senha da rede Wi-Fi desejada. Essa funcionalidade é especialmente útil em cenários onde o dispositivo precisa ser facilmente configurável sem a necessidade de reprogramação.
 
-unsigned long timerDelay = 5000;
-unsigned long lastTime = 0;
-long randNumber;
-
-void setup() {
-  Serial.begin(115200);
-  Serial.println();
-
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  Serial.print("Conectando ao WiFi ("+ssid+") ..");
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print('.');
-    delay(500);
-  }
-
-  randomSeed(analogRead(0));
-}
-
-void loop() {
-  if ((millis() - lastTime) > timerDelay) {
-    if ((WiFi.status() == WL_CONNECTED)) {
-      std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
-      client->setInsecure();
-      
-      HTTPClient https;
-      Serial.print("[HTTPS] begin...\n");
-
-      randNumber = random(100, 900);
-      String serverPath = serverName + "?valor=" + String(int(randNumber));
-
-      Serial.println(serverPath);
-      
-      if (https.begin(*client, serverPath)) {
-        Serial.print("[HTTPS] GET");
-        int httpCode = https.GET();
-
-        if (httpCode > 0) {
-          Serial.printf("[HTTPS] GET. HTTP code: %d\n", httpCode);
-          
-          if (httpCode == HTTP_CODE_OK `` httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
-            String payload = https.getString();
-            Serial.println(payload);
-          }
-        } else {
-          Serial.printf("[HTTPS] GET... requisição falhou, erro: %s\n", https.errorToString(httpCode).c_str());
-        }
-  
-        https.end();
-      } else {
-        Serial.printf("[HTTPS] Não foi possível realizar o request\n");
-      }
-    }
-    Serial.println();    
-    lastTime = millis();
-  }
-}
-```
+Essa abordagem torna o ESP8266 uma solução flexível para diversos projetos, permitindo que ele atue como um ponto de configuração inicial para dispositivos IoT. Ao facilitar a conexão e a configuração através de uma interface web, o projeto se torna mais acessível, mesmo para usuários que não possuem experiência técnica avançada.
 
 ## Contribuições
 

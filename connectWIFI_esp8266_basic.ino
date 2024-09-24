@@ -37,6 +37,10 @@ void setup() {
     delay(500);
   }
 
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("Conectado " + String(ssid) + "...");
+  }
+
   // Gera um seed para geração de um número aleatório para testes
   randomSeed(analogRead(0));
 }
@@ -55,7 +59,7 @@ void loop() {
       client->setInsecure();
       
       HTTPClient https;
-      Serial.print("[HTTPS] begin...\n");
+      Serial.println("[HTTPS] Iniciando requisição...");
 
 
       randNumber = random(100, 900);
