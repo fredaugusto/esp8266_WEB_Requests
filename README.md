@@ -1,4 +1,4 @@
-# ESP8266_WEB_Requests
+# ESP8266 - WEB Requests
 
 Este projeto é uma implementação simples de requisições HTTP usando o ESP8266. O código foi desenvolvido com fins didáticos e é gratuito para qualquer pessoa que o obtenha.
 
